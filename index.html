@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>aaaahhhh_rocket</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <section id="screen-title" class="screen">
+      <div class="title-card">
+        <h1>aaaahhhh_rocket</h1>
+        <p class="lead">叫べ。止まったら爆散する。</p>
+
+        <div class="mic-test">
+          <button id="mic-test-btn" class="mic-test-btn" type="button" aria-label="マイクのテストを開始する">🎤 マイクをテスト</button>
+          <div class="volume-bar">
+            <div class="volume-fill" id="title-volume"></div>
+            <div class="threshold-mark" id="title-threshold-mark"></div>
+          </div>
+          <small class="mic-hint">現在のマイク音量(後で表示されるバー)</small>
+        </div>
+
+        <div class="difficulty">
+          <button class="diff-btn" data-difficulty="weak" type="button" aria-label="難易度: 弱。ささやく程度でOK">
+            <span class="diff-name">弱</span>
+            <span class="diff-desc">ささやく程度でOK</span>
+          </button>
+          <button class="diff-btn" data-difficulty="medium" type="button" aria-label="難易度: 中。普通の叫び声">
+            <span class="diff-name">中</span>
+            <span class="diff-desc">普通の叫び声</span>
+          </button>
+          <button class="diff-btn" data-difficulty="strong" type="button" aria-label="難易度: 強。全力の絶叫">
+            <span class="diff-name">強</span>
+            <span class="diff-desc">全力の絶叫</span>
+          </button>
+        </div>
+
+        <p class="warning hidden" id="mic-warning">⚠ マイクの使用を許可してください</p>
+
+        <p class="footer-hint">最高到達高度: <span id="title-best">0 m</span></p>
+      </div>
+    </section>
+
+    <section id="screen-game" class="screen" style="display:none">
+      <svg id="world" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="sky-light" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#a8d8ff"/>
+            <stop offset="1" stop-color="#e0f0ff"/>
+          </linearGradient>
+          <linearGradient id="sky-blue" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3a7bd5"/>
+            <stop offset="1" stop-color="#7ec0ee"/>
+          </linearGradient>
+          <linearGradient id="sky-space" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#000005"/>
+            <stop offset="1" stop-color="#000033"/>
+          </linearGradient>
+          <radialGradient id="earth-grad" cx="0.5" cy="0.3">
+            <stop offset="0" stop-color="#4a8fd9"/>
+            <stop offset="0.7" stop-color="#1a4a8c"/>
+            <stop offset="1" stop-color="#0a1a3a"/>
+          </radialGradient>
+          <radialGradient id="atmosphere-glow" cx="0.5" cy="0.5">
+            <stop offset="0.5" stop-color="rgba(100,180,255,0)"/>
+            <stop offset="1" stop-color="rgba(100,180,255,0.4)"/>
+          </radialGradient>
+        </defs>
+
+        <rect id="sky" width="1000" height="800" fill="url(#sky-light)"/>
+
+        <g id="earth"></g>
+        <g id="clouds"></g>
+        <g id="stars"></g>
+        <g id="atmosphere"></g>
+
+        <g id="particles" transform="translate(500, 500)"></g>
+        <g id="rocket" transform="translate(500, 500)"></g>
+      </svg>
+
+      <div id="aaah-overlay" class="aaah tier-1" style="display:none">AAAAHHHH!!!!</div>
+
+      <div id="ready-hint" class="ready-hint" style="display:none">
+        <div class="ready-text">叫ぶ準備はいい?</div>
+        <div class="ready-sub">音量を維持できれば上昇できる</div>
+      </div>
+
+      <div id="countdown-overlay" class="countdown" style="display:none"></div>
+
+      <div class="hud">
+        <div class="hud-item">
+          <div class="hud-label">高度</div>
+          <div class="hud-value" id="altitude-text">0 m</div>
+        </div>
+        <div class="hud-item">
+          <div class="hud-label">音量</div>
+          <div class="volume-bar volume-bar-small">
+            <div class="volume-fill" id="game-volume"></div>
+            <div class="threshold-mark" id="game-threshold-mark"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-score" class="screen" style="display:none">
+      <div class="score-card">
+        <h2>💥 爆散 💥</h2>
+
+        <div class="score-final">
+          <div class="score-label">到達高度</div>
+          <div class="score-value" id="final-altitude">0 m</div>
+          <div class="score-difficulty" id="final-difficulty"></div>
+        </div>
+
+        <div class="score-best">
+          自己ベスト: <span id="best-altitude">0 m</span>
+        </div>
+
+        <h3>履歴(上位5)</h3>
+        <ol id="history-list"></ol>
+
+        <div class="actions">
+          <button id="btn-retry" class="action-btn" type="button" aria-label="もう一度プレイする">もう一度</button>
+          <button id="btn-title" class="action-btn" type="button" aria-label="タイトル画面に戻る">タイトルへ</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
