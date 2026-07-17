@@ -104,7 +104,7 @@ export function tickCountdown({ elapsed, lastCountdownStep, now }) {
  * @returns {{nextState: string, transition: boolean, altitude: number, victory: boolean, explosionStartTime: number|null}}
  */
 export function tickFlying({ altitude, dt, now, volume, threshold, flyingStart }) {
-  const isAbove = volume > threshold;
+  const isAbove = shouldKeepVolumeForAltitude(volume, threshold);
   const inGracePeriod = (now - flyingStart) < GRACE_PERIOD_MS;
 
   if (!inGracePeriod && !isAbove) {

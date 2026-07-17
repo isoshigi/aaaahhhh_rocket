@@ -1,12 +1,12 @@
 import {
   SKY_STOPS,
-  PIXELS_PER_METER,
   STAR_OP_CLASSES,
   STAR_OP_BREAKS,
   getSkyColor,
   computeCloudOpacity,
   computeStarOpacity,
   computeEarthView,
+  cloudScreenY,
   rgbStr
 } from "./view.js";
 
@@ -257,8 +257,7 @@ const Render = (() => {
     cloudGroup.style.opacity = cloudOpacity.toFixed(3);
 
     for (let i = 0; i < CLOUD_COUNT; i++) {
-      const relAlt = cloudWorldAlts[i] - altitude;
-      const screenY = 400 - relAlt * PIXELS_PER_METER;
+      const screenY = cloudScreenY(cloudWorldAlts[i], altitude);
       cloudNodes[i].setAttribute('transform', `translate(${cloudBaseX[i]},${screenY})`);
 
       if (relAlt < -RECYCLE_RANGE_M) {
