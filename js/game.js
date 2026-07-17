@@ -1,18 +1,8 @@
-import {
-  GRACE_PERIOD_MS,
-  SPEED_COEFFICIENT,
-  FINAL_ALTITUDE,
-  EXPLOSION_DELAY_MS,
-  COUNTDOWN_END
-} from "./config.js";
-
-export {
-  GRACE_PERIOD_MS,
-  SPEED_COEFFICIENT,
-  FINAL_ALTITUDE,
-  EXPLOSION_DELAY_MS,
-  COUNTDOWN_END
-};
+export const GRACE_PERIOD_MS = 600;
+export const SPEED_COEFFICIENT = 30000;
+export const FINAL_ALTITUDE = 200000;
+export const EXPLOSION_DELAY_MS = 1500;
+export const COUNTDOWN_END = 3200;
 
 export const STATE = Object.freeze({
   TITLE: 'title',

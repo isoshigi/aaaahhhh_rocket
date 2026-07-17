@@ -1,12 +1,12 @@
 import {
   STATE,
-  FINAL_ALTITUDE,
   computeDt,
   tickCountdown,
   tickFlying,
   tickExploded
 } from "./game.js";
 import { generateAaaah, getAaaahTier } from "./aaah.js";
+import { FINAL_ALTITUDE } from "./game.js";
 import { Storage } from "./storage.js";
 import { Audio } from "./audio.js";
 import { Render } from "./render.js";
