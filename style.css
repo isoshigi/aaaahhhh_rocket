@@ -140,6 +140,67 @@ body {
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
 }
 
+.diff-threshold {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.diff-weak   { background: #4ade80; }
+.diff-medium { background: #fbbf24; }
+.diff-strong { background: #ef4444; }
+
+.sensitivity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 280px;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.sensitivity-control label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.sensitivity-control input[type="range"] {
+  flex: 1;
+  height: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.sensitivity-control input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.sensitivity-control input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+}
+
 .difficulty {
   display: flex;
   flex-direction: column;

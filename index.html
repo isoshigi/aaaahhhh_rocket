@@ -15,14 +15,20 @@
         <h1>aaaahhhh_rocket</h1>
         <p class="lead">叫べ。止まったら爆散する。</p>
 
-        <div class="mic-test">
-          <button id="mic-test-btn" class="mic-test-btn" type="button" aria-label="マイクのテストを開始する">🎤 マイクをテスト</button>
-          <div class="volume-bar">
-            <div class="volume-fill" id="title-volume"></div>
-            <div class="threshold-mark" id="title-threshold-mark"></div>
+          <div class="mic-test">
+            <button id="mic-test-btn" class="mic-test-btn" type="button" aria-label="マイクのテストを開始する">🎤 マイクをテスト</button>
+            <div class="volume-bar">
+              <div class="volume-fill" id="title-volume"></div>
+              <div class="diff-threshold diff-weak"   id="threshold-weak"></div>
+              <div class="diff-threshold diff-medium" id="threshold-medium"></div>
+              <div class="diff-threshold diff-strong" id="threshold-strong"></div>
+            </div>
+            <div class="sensitivity-control">
+              <label for="sensitivity-slider">感度: <span id="sensitivity-value">1.0</span>x</label>
+              <input type="range" id="sensitivity-slider" min="0" max="3" step="0.1" value="1">
+            </div>
+            <small class="mic-hint">現在のマイク音量(後で表示されるバー)</small>
           </div>
-          <small class="mic-hint">現在のマイク音量(後で表示されるバー)</small>
-        </div>
 
         <div class="difficulty">
           <button class="diff-btn" data-difficulty="weak" type="button" aria-label="難易度: 弱。ささやく程度でOK">

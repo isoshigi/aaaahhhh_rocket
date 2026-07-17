@@ -21,6 +21,7 @@ const Audio = (() => {
   let lastFrameTime = 0;
   let listeners = [];
   let ticking = false;
+  let sensitivity = 1;
 
   async function start(difficulty) {
     if (audioContext) return true;
@@ -65,11 +66,13 @@ const Audio = (() => {
   }
 
   function onVolume(cb) { listeners.push(cb); }
+  function setSensitivity(v) { sensitivity = v; }
+  function getSensitivity() { return sensitivity; }
   function getVolume() { return smoothedRms; }
-  function getThreshold() { return threshold; }
+  function getThreshold() { return threshold * sensitivity; }
   function getDisplayMax() { return DISPLAY_MAX; }
   function isActive() { return audioContext !== null; }
-  function getThresholdPercent() { return toThresholdPercent(threshold); }
+  function getThresholdPercent() { return toThresholdPercent(threshold * sensitivity); }
   function getVolumePercent() { return toVolumePercent(smoothedRms); }
 
   function stop() {
@@ -85,6 +88,7 @@ const Audio = (() => {
 
   return {
     start, stop, startLoop, onVolume,
+    setSensitivity, getSensitivity,
     getVolume, getThreshold, getThresholdPercent, getVolumePercent,
     getDisplayMax, isActive, THRESHOLDS
   };

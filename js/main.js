@@ -26,12 +26,14 @@ import { Sfx } from "./sfx.js";
   let lastTier = 0;
 
   let titleEl, gameEl, scoreEl;
-  let titleBestEl, titleVolumeEl, titleThresholdEl, titleWarningEl;
+  let titleBestEl, titleVolumeEl, titleWarningEl;
   let gameVolumeEl, gameThresholdEl, altitudeTextEl, aaahEl;
   let readyHintEl, countdownEl;
   let finalAltitudeEl, finalDifficultyEl, bestAltitudeEl, historyListEl;
   let btnRetry, btnTitle, micTestBtn;
   let gameContainer;
+  let thresholdWeakEl, thresholdMediumEl, thresholdStrongEl;
+  let sensitivitySlider, sensitivityValueEl;
 
   function init() {
     titleEl = document.getElementById('screen-title');
@@ -41,7 +43,6 @@ import { Sfx } from "./sfx.js";
 
     titleBestEl = document.getElementById('title-best');
     titleVolumeEl = document.getElementById('title-volume');
-    titleThresholdEl = document.getElementById('title-threshold-mark');
     titleWarningEl = document.getElementById('mic-warning');
 
     gameVolumeEl = document.getElementById('game-volume');
@@ -60,6 +61,12 @@ import { Sfx } from "./sfx.js";
     btnTitle = document.getElementById('btn-title');
     micTestBtn = document.getElementById('mic-test-btn');
 
+    thresholdWeakEl = document.getElementById('threshold-weak');
+    thresholdMediumEl = document.getElementById('threshold-medium');
+    thresholdStrongEl = document.getElementById('threshold-strong');
+    sensitivitySlider = document.getElementById('sensitivity-slider');
+    sensitivityValueEl = document.getElementById('sensitivity-value');
+
     Render.init();
 
     micTestBtn.addEventListener('click', testMic);
@@ -73,6 +80,14 @@ import { Sfx } from "./sfx.js";
       const pct = Audio.getVolumePercent();
       if (titleVolumeEl) titleVolumeEl.style.width = pct + '%';
       if (gameVolumeEl) gameVolumeEl.style.width = pct + '%';
+    });
+
+    sensitivitySlider.addEventListener('input', () => {
+      const v = parseFloat(sensitivitySlider.value);
+      sensitivityValueEl.textContent = v.toFixed(1);
+      Audio.setSensitivity(v);
+      positionThresholdLines(v);
+      if (gameThresholdEl) gameThresholdEl.style.left = Audio.getThresholdPercent() + '%';
     });
 
     setRandomLead();
@@ -93,6 +108,13 @@ import { Sfx } from "./sfx.js";
     scoreEl.style.display = name === 'score' ? 'flex' : 'none';
   }
 
+  function positionThresholdLines(sensitivity) {
+    const dm = Audio.getDisplayMax();
+    if (thresholdWeakEl)   thresholdWeakEl.style.left   = (Audio.THRESHOLDS.weak   * sensitivity / dm * 100) + '%';
+    if (thresholdMediumEl) thresholdMediumEl.style.left = (Audio.THRESHOLDS.medium * sensitivity / dm * 100) + '%';
+    if (thresholdStrongEl) thresholdStrongEl.style.left = (Audio.THRESHOLDS.strong * sensitivity / dm * 100) + '%';
+  }
+
   async function testMic() {
     if (Audio.isActive()) return;
     const ok = await Audio.start('medium');
@@ -102,7 +124,7 @@ import { Sfx } from "./sfx.js";
     }
     titleWarningEl.classList.add('hidden');
     Audio.startLoop();
-    if (titleThresholdEl) titleThresholdEl.style.left = Audio.getThresholdPercent() + '%';
+    positionThresholdLines(Audio.getSensitivity());
     micTestBtn.classList.add('active');
     micTestBtn.textContent = '🎤 テスト中...';
   }
@@ -117,7 +139,6 @@ import { Sfx } from "./sfx.js";
     }
     titleWarningEl.classList.add('hidden');
     Audio.startLoop();
-    if (titleThresholdEl) titleThresholdEl.style.left = Audio.getThresholdPercent() + '%';
     if (gameThresholdEl) gameThresholdEl.style.left = Audio.getThresholdPercent() + '%';
 
     altitude = 0;
