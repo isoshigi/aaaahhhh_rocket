@@ -231,11 +231,11 @@ describe("view.js", () => {
     test("relative 0 → SKY_HORIZON_Y", () => {
       expect(cloudScreenY(1000, 1000)).toBe(SKY_HORIZON_Y);
     });
-    test("相対高度 +1m → 0.05px 加算", () => {
-      expect(cloudScreenY(1001, 1000)).toBeCloseTo(SKY_HORIZON_Y + PIXELS_PER_METER, 5);
+    test("相対高度 +1m → 0.05px 減算", () => {
+      expect(cloudScreenY(1001, 1000)).toBeCloseTo(SKY_HORIZON_Y - PIXELS_PER_METER, 5);
     });
-    test("相対高度 -1m → 0.05px 減算", () => {
-      expect(cloudScreenY(999, 1000)).toBeCloseTo(SKY_HORIZON_Y - PIXELS_PER_METER, 5);
+    test("相対高度 -1m → 0.05px 加算", () => {
+      expect(cloudScreenY(999, 1000)).toBeCloseTo(SKY_HORIZON_Y + PIXELS_PER_METER, 5);
     });
   });
 });

@@ -143,5 +143,5 @@ export function computeEarthView(altitude) {
  */
 export function cloudScreenY(cloudWorldAlt, altitude) {
   const relAlt = cloudWorldAlt - altitude;
-  return SKY_HORIZON_Y + relAlt * PIXELS_PER_METER;
+  return SKY_HORIZON_Y - relAlt * PIXELS_PER_METER;
 }

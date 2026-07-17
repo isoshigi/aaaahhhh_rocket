@@ -260,7 +260,7 @@ const Render = (() => {
 
     for (let i = 0; i < CLOUD_COUNT; i++) {
       const relAlt = cloudWorldAlts[i] - altitude;
-      const screenY = 400 + relAlt * PIXELS_PER_METER;
+      const screenY = 400 - relAlt * PIXELS_PER_METER;
       cloudNodes[i].setAttribute('transform', `translate(${cloudBaseX[i]},${screenY})`);
 
       if (relAlt < -RECYCLE_RANGE_M) {
